@@ -17,7 +17,7 @@ Outcome: Develop a risk management tool - Move away from Excel sheets to a more 
 
 ## How To Clone
 ```
-git clone
+git clone https://github.com/Powerlearnproject/Intellectual-Property-Copyright.git
 ```
 
 ### Happy Coding
