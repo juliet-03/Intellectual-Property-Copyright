@@ -11,7 +11,7 @@ Phone calls add a personal touch and are harder to ignore, making them ideal for
 Physical visits typically result in stronger repayment commitments and even on-the-spot payments, but they require significant time, cost, and planning. They are also not scalable or practical for clients in remote locations.
 
 ## Solution
-An Exploration to the Various Message based Services, Apps, Web based Service Solutions
+An Exploration of the Various Message-based Services, Apps, and Web-based Service Solutions
 
 Outcome: Develop a risk management tool - Move away from Excel sheets to a more integrated and transparent visual tool that can provide early predictive analysis of any risks.
 
@@ -20,4 +20,9 @@ Outcome: Develop a risk management tool - Move away from Excel sheets to a more 
 git clone https://github.com/Powerlearnproject/Intellectual-Property-Copyright.git
 ```
 
-### Happy Coding
+Navigate to the working directory
+```bash
+cd Intellectual-Property-Copyright
+```
+
+### Happy Hacking
