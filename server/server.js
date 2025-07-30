@@ -18,9 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('api/clients', clientRoutes);
-app.use('api/auth', authRoutes);
-app.use('api/messages', messageRoutes);
+app.use('/api/clients', clientRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/messages', messageRoutes);
 // Default route
 app.get('/', (req, res) => {
   res.send('📡 Debt Recovery API is running...');
