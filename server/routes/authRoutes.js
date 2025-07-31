@@ -7,7 +7,7 @@ const { protect } = require('../middleware/authMiddleware');
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 
-// Protected profile update
+// Protected profile update - Fix the route
 router.put('/profile', protect, updateProfile);
 
 module.exports = router;

@@ -3,10 +3,10 @@ const router = express.Router();
 const { sendMessage, getClientMessages } = require('../controllers/messageController');
 const { protect } = require('../middleware/authMiddleware');
 
-// Send message to a client
-router.post('/', protect, sendMessage);
+// Send message to a client - Fix the route
+router.post('/send', protect, sendMessage);
 
 // Get messages for a client
-router.get('/:clientId', protect, getClientMessages);
+router.get('/client/:clientId', protect, getClientMessages);
 
 module.exports = router;

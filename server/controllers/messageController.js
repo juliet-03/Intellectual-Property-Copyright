@@ -4,6 +4,7 @@ const Message = require('../models/Message');
 exports.sendMessage = async (req, res) => {
   try {
     const { clientId, content } = req.body;
+    console.log('Received message data:', { clientId, content, userId: req.user._id });
 
     const message = await Message.create({
       client: clientId,
@@ -13,7 +14,8 @@ exports.sendMessage = async (req, res) => {
 
     res.status(201).json(message);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to send message', error });
+    console.error('Message creation error:', error);
+    res.status(500).json({ message: 'Failed to send message', error: error.message });
   }
 };
 

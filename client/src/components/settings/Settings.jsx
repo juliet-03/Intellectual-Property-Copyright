@@ -4,14 +4,30 @@ import toast from 'react-hot-toast';
 import { profileAPI } from '../../services/api';
 
 const Settings = () => {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
+  
+  // Safe parsing of user data from localStorage
+  const getUserFromStorage = () => {
+    try {
+      const userData = localStorage.getItem('user');
+      if (!userData || userData === 'undefined' || userData === 'null') {
+        return null;
+      }
+      return JSON.parse(userData);
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return null;
+    }
+  };
+
+  const user = getUserFromStorage();
+  
   const [formData, setFormData] = useState({
-    fullName: user.fullName || '',
-    email: user.email || '',
+    fullName: user?.fullName || '',
+    email: user?.email || '',
     password: '',
   });
-  const [saving, setSaving] = useState(false);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,18 +37,29 @@ const Settings = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      const response = await profileAPI.update({
+      console.log('Updating profile with data:', {
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password ? '[PROVIDED]' : '[EMPTY]'
+      });
+      
+      const response = await profileAPI.updateProfile({
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password,
       });
+      
+      console.log('Profile update response:', response);
+      
       // Update localStorage with new user and token
       localStorage.setItem('user', JSON.stringify(response.data));
       localStorage.setItem('token', response.data.token);
       setFormData({ ...formData, password: '' });
       toast.success('Profile updated!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to update profile');
+      console.error('Profile update error:', error);
+      console.error('Error response:', error.response?.data);
+      toast.error(`Failed to update profile: ${error.response?.data?.message || error.message}`);
     } finally {
       setSaving(false);
     }

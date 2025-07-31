@@ -53,15 +53,25 @@ const Messages = () => {
     if (!newMessage.trim() || !selectedClient) return;
     setSending(true);
     try {
-      await messagesAPI.sendMessage({
-        client: selectedClient._id,
+      console.log('Sending message:', {
+        clientId: selectedClient._id,
         content: newMessage,
       });
+      
+      const response = await messagesAPI.sendMessage({
+        clientId: selectedClient._id,
+        content: newMessage,
+      });
+      
+      console.log('Message send response:', response);
       setNewMessage('');
       fetchMessages(selectedClient._id);
       toast.success('Message sent');
     } catch (err) {
-      toast.error('Failed to send message');
+      console.error('Send message error:', err);
+      console.error('Error response:', err.response?.data);
+      console.error('Request config:', err.config);
+      toast.error(`Failed to send message: ${err.response?.data?.message || err.message}`);
     } finally {
       setSending(false);
     }

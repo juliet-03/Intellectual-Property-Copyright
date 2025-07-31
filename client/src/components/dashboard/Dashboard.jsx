@@ -22,14 +22,25 @@ const Dashboard = () => {
   });
   const [recentClients, setRecentClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [paymentTrends, setPaymentTrends] = useState([]);
+  const [realtimeStats, setRealtimeStats] = useState({});
 
   useEffect(() => {
     fetchDashboardData();
+    // WebSocket connection for real-time updates
+    const ws = new WebSocket('ws://localhost:5000/ws');
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setRealtimeStats(data);
+    };
+    return () => ws.close();
   }, []);
 
   const fetchDashboardData = async () => {
     try {
+      console.log('Fetching dashboard data...');
       const response = await clientsAPI.getAll();
+      console.log('Dashboard data response:', response);
       const clients = response.data;
       
       const totalAmount = clients.reduce((sum, client) => sum + client.amountOwed, 0);
@@ -47,7 +58,9 @@ const Dashboard = () => {
       
       setRecentClients(clients.slice(0, 5));
     } catch (error) {
-      toast.error('Failed to load dashboard data');
+      console.error('Dashboard fetch error:', error);
+      console.error('Error response:', error.response?.data);
+      toast.error(`Failed to load dashboard data: ${error.response?.data?.message || error.message}`);
     } finally {
       setLoading(false);
     }
