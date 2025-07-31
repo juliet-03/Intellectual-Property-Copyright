@@ -9,6 +9,8 @@ import ClientDetail from './components/clients/ClientDetail';
 import Layout from './components/layout/Layout';
 import Messages from './components/messages/Messages';
 import Settings from './components/settings/Settings';
+import About from './components/about/About';
+
 import './App.css';
 
 function App() {
@@ -61,6 +63,18 @@ function App() {
               )
             } 
           />
+          <Route
+            path="/about"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  <About />
+                </Layout>
+              ) : (
+                <Navigate to="/login" />
+              ) 
+            }
+          />
           <Route 
             path="/clients" 
             element={
@@ -109,6 +123,7 @@ function App() {
               )
             } 
           />
+          
         </Routes>
       </div>
     </Router>

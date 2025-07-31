@@ -14,6 +14,8 @@ import {
 import { clientsAPI, messagesAPI } from '../../services/api';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
+import CreditScoreCard from "../card/CreditScoreCard";
+
 
 const ClientDetail = () => {
   const { id } = useParams();
@@ -208,6 +210,12 @@ const ClientDetail = () => {
             )}
           </div>
         </div>
+        {/* Credit Score Card */}
+         <div>
+            <h2>Client Detail</h2>
+               <CreditScoreCard />
+          </div> 
+
 
         {/* Messages */}
         <div className="lg:col-span-2">

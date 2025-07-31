@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Users, BarChart3, MessageSquare, Settings, LogOut, Menu, X, DollarSign } from 'lucide-react';
+import { Users, BarChart3, MessageSquare, Settings, LogOut, Menu, X, DollarSign, Info } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -8,10 +8,12 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
 
   const navigation = [
+     {name: 'About', href: '/about', icon: Info },
     { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
     { name: 'Clients', href: '/clients', icon: Users },
     { name: 'Messages', href: '/messages', icon: MessageSquare },
     { name: 'Settings', href: '/settings', icon: Settings },
+   
   ];
 
   const handleLogout = () => {
